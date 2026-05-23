@@ -19,10 +19,8 @@ services:
       - "3306:3306"
     environment:
       # Configurações de credenciais enviadas por você
-      MYSQL_ROOT_PASSWORD: mys2Edu4Up@2025
-      # MYSQL_DATABASE: wordpress_db
-      MYSQL_USER: root
-      MYSQL_PASSWORD: mys2Edu4Up@2025
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       # Garante a persistência dos dados no seu computador
       - db_data:/var/lib/mysql
