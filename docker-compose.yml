@@ -14,13 +14,13 @@ services:
       "--innodb_flush_log_at_trx_commit=2"
     ]
     restart: unless-stopped
-    ports:
+    # ports:
       # Acesso ao banco de dados por um programa externo (como DBeaver, MySQL Workbench ou HeidiSQL)
-      - "3306:3306"
+      # - "3306:3306"
     environment:
       # Configurações de credenciais enviadas por você
       MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
       # Garante a persistência dos dados no seu computador
       - db_data:/var/lib/mysql
@@ -33,11 +33,12 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     container_name: phpmyadmin_container
     restart: always
-    ports:
+    # ports:
       # Acessa a interface visual do banco por http://localhost:8080
-      - "8080:80"
+      # - "8080:80"
     environment:
       PMA_HOST: mariadb_db
+      PMA_PORT: 3306
       PMA_ARBITRARY: 1
     networks:
       - my-shared-network
