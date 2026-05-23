@@ -1,0 +1,52 @@
+services:
+  mariadb_db:
+    image: mariadb:11.4.2 
+    container_name: mariadb_db
+# 🔹 CORRIGIDO: Formato de lista (Array), à prova de erros de indentação
+    command: [
+      "--enforce-storage-engine=InnoDB",
+      "--explicit_defaults_for_timestamp=1",
+      "--local-infile=1",
+      "--sql-mode=",
+      "--disable-log-bin",
+      "--innodb_buffer_pool_size=4G",
+      "--innodb_log_buffer_size=64M",
+      "--innodb_flush_log_at_trx_commit=2"
+    ]
+    restart: unless-stopped
+    ports:
+      # Acesso ao banco de dados por um programa externo (como DBeaver, MySQL Workbench ou HeidiSQL)
+      - "3306:3306"
+    environment:
+      # Configurações de credenciais enviadas por você
+      MYSQL_ROOT_PASSWORD: mys2Edu4Up@2025
+      # MYSQL_DATABASE: wordpress_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: mys2Edu4Up@2025
+    volumes:
+      # Garante a persistência dos dados no seu computador
+      - db_data:/var/lib/mysql
+      # 🔹 NOVA LINHA AQUI: Mapeia seus arquivos SQL locais para a pasta de inicialização do container
+      - ./init-scripts:/docker-entrypoint-initdb.d:ro
+    networks:
+      - my-shared-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin_container
+    restart: always
+    ports:
+      # Acessa a interface visual do banco por http://localhost:8080
+      - "8080:80"
+    environment:
+      PMA_HOST: mariadb_db
+      PMA_ARBITRARY: 1
+    networks:
+      - my-shared-network
+
+volumes:
+  db_data: # Define o volume persistente do banco
+
+networks:
+  my-shared-network:
+    external: true # Conecta à rede global que já criamos
