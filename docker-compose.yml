@@ -9,11 +9,16 @@ services:
       "--local-infile=1",
       "--sql-mode=",
       "--disable-log-bin",
-      "--innodb_buffer_pool_size=4G",
-      "--innodb_log_buffer_size=64M",
+      "--innodb_buffer_pool_size=1G",
+      "--innodb_log_buffer_size=256M",
       "--innodb_flush_log_at_trx_commit=2"
     ]
-    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1536M  # Limita o container a no máximo 1.5 GB de RAM
+          cpus: '2.0'    # Limita o container a no máximo 2 núcleos de CPU
+    restart: always
     # ports:
       # Acesso ao banco de dados por um programa externo (como DBeaver, MySQL Workbench ou HeidiSQL)
       # - "3306:3306"
