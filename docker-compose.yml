@@ -19,9 +19,9 @@ services:
           memory: 1536M  # Limita o container a no máximo 1.5 GB de RAM
           cpus: '2.0'    # Limita o container a no máximo 2 núcleos de CPU
     restart: always
-    # ports:
+    ports:
       # Acesso ao banco de dados por um programa externo (como DBeaver, MySQL Workbench ou HeidiSQL)
-      # - "3306:3306"
+      - "3306:3306"
     environment:
       # Configurações de credenciais enviadas por você
       MYSQL_USER: ${MYSQL_USER}

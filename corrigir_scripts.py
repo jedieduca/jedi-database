@@ -46,7 +46,8 @@ arquivos_projeto = [
     "02-jedi-educa.sql",
     "03-jedi-logs.sql",
     "04-jedi-permissions.sql",
-    "05-mad-api.sql"
+    "05-mad-api.sql",
+    "06-jedieduca.sql"
 ]
 
 print("Iniciando purificação dos scripts para MariaDB 11.4.2...")

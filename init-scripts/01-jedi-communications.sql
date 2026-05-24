@@ -1,5 +1,6 @@
 SET SQL_MODE = "";
 SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 0;
 CREATE DATABASE  IF NOT EXISTS `jedi-communications` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ ;
 USE `jedi-communications`;
 -- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
