@@ -24,15 +24,17 @@ services:
       - "3306:3306"
     environment:
       # Configurações de credenciais enviadas por você
-      MYSQL_USER: ${MYSQL_USER}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       # Garante a persistência dos dados no seu computador
       - db_data:/var/lib/mysql
       # 🔹 NOVA LINHA AQUI: Mapeia seus arquivos SQL locais para a pasta de inicialização do container
       - ./init-scripts:/docker-entrypoint-initdb.d:ro
     networks:
-      - my-shared-network
+      - jedieduca-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -46,11 +48,11 @@ services:
       PMA_PORT: 3306
       PMA_ARBITRARY: 1
     networks:
-      - my-shared-network
+      - jedieduca-network
 
 volumes:
-  db_data: # Define o volume persistente do banco
+  db_data: # Define o volume persistente do banco de dados
 
 networks:
-  my-shared-network:
+  jedieduca-network:
     external: true # Conecta à rede global que já criamos

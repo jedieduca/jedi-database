@@ -1,1 +1,5 @@
 .env
+
+*.sql
+sql-scripts/
+init-scripts/
