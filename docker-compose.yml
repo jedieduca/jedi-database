@@ -1,6 +1,6 @@
 services:
   mariadb_db:
-    image: mariadb:11.4.2 
+    image: mariadb:11.4.13 
     container_name: mariadb_db
 # 🔹 CORRIGIDO: Formato de lista (Array), à prova de erros de indentação
     command: [
@@ -24,6 +24,7 @@ services:
       - "3306:3306"
     environment:
       # Configurações de credenciais enviadas por você
+      MARIADB_AUTO_UPGRADE: 1
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
@@ -37,7 +38,7 @@ services:
       - jedieduca-network
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin:latest
     container_name: phpmyadmin_container
     restart: always
     ports:
