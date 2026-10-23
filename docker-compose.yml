@@ -21,7 +21,10 @@ services:
     restart: always
     ports:
       # Acesso ao banco de dados por um programa externo (como DBeaver, MySQL Workbench ou HeidiSQL)
-      - "3306:3306"
+      # Antes: porta aberta para a internet (o Docker ignora as regras do UFW)
+      # - "3306:3306"
+      # Agora: só aceita conexões do próprio servidor; acesse pelo DBeaver com túnel SSH
+      - "127.0.0.1:3306:3306"
     environment:
       # Configurações de credenciais enviadas por você
       MARIADB_AUTO_UPGRADE: 1
@@ -41,13 +44,16 @@ services:
     image: phpmyadmin:latest
     container_name: phpmyadmin_container
     restart: always
-    ports:
-      # Acessa a interface visual do banco por http://localhost:8080
-      - "8080:80"
+    # Desativado: a porta 8080 expunha o phpMyAdmin direto, sem HTTPS. O acesso é
+    # feito pela URL amigável, via proxy reverso na rede jedieduca-network.
+    # ports:
+    #   # Acessa a interface visual do banco por http://localhost:8080
+    #   - "8080:80"
     environment:
       PMA_HOST: mariadb_db
       PMA_PORT: 3306
-      PMA_ARBITRARY: 1
+      # Desativado: permitia informar no login qualquer servidor de banco
+      # PMA_ARBITRARY: 1
     networks:
       - jedieduca-network
 
